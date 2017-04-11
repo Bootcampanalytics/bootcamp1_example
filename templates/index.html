@@ -1,24 +1,351 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE HTML> 
 
-  <head>
-    <title>Python Flask Starter Application1</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="templates/stylesheets/style.css">
-  </head>
+<head>
+<meta name="viewport" content="width=device-width; initial-scale=2.0; maximum-scale=2.0; user-scalable=0;" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" /><title>Scoring example</title>
 
-  <body>
-    <table>
-      <tr>
-        <td style= "width:30%;">
-          <img class = "newappIcon" src="templates/images/newapp-icon.png">
-        <td>
-            <h1>Hi there {{test}}!</h1>
-          <p>Thanks for creating a
-            <span class = "blue">Python <a href = "http://flask.pocoo.org/">Flask</a> Starter Application1</span>.
-    </table>
-  </body>
+<link rel="apple-touch-icon" href="./icon.jpg" />
+<link rel="apple-touch-startup-image" href="./startup.jpg" />
+<link rel="stylesheet" href="WebApp/Design/Render.css" />
+<script type="text/javascript" src="WebApp/Action/Logic.js"></script>
 
+
+<script type="text/javascript"> 
+
+
+function get_chosen_prods() {
+var pr1 = document.getElementById("prod1").options[document.getElementById("prod1").selectedIndex].text;
+var pr2 = document.getElementById("prod1").options[document.getElementById("prod2").selectedIndex].text;
+var pr3 = document.getElementById("prod1").options[document.getElementById("prod3").selectedIndex].text;
+var pr4 = document.getElementById("prod1").options[document.getElementById("prod4").selectedIndex].text;
+var pr5 = document.getElementById("prod1").options[document.getElementById("prod5").selectedIndex].text;
+var all = [pr1,pr2,pr3,pr4,pr5];
+var chosen=[];
+for (var i in all) {
+	if (all[i]!="Choose a product") {chosen.push(all[i])};
+	};
+return chosen;
+};
+
+
+function fill_prods(id) {
+var pr1 = document.getElementById("prod1").options[document.getElementById("prod1").selectedIndex].text;
+var pr2 = document.getElementById("prod1").options[document.getElementById("prod2").selectedIndex].text;
+var pr3 = document.getElementById("prod1").options[document.getElementById("prod3").selectedIndex].text;
+var pr4 = document.getElementById("prod1").options[document.getElementById("prod4").selectedIndex].text;
+var pr5 = document.getElementById("prod1").options[document.getElementById("prod5").selectedIndex].text;
+var all = [pr1,pr2,pr3,pr4,pr5];
+for (var i in all) {
+	if (all[i]=="Choose a product") {
+	    document.getElementById("prod"+String(parseInt(i)+1)).value=document.getElementById("result"+id.charAt(id.length - 1)).innerHTML;
+		break;
+	};
+	};
+	askModeler()
+};
+
+
+
+
+
+
+function askModeler() {
+//var client = new XMLHttpRequest();
+//var url = "http://119.81.123.177:9083/scoring/rest/service";
+//var url = "http://119.81.123.177:9083/scoring/rest/configuration";
+//var url = "http://119.81.123.177:9083/scoring/rest/configuration/DM_apriori/metadata";
+var url = "http://119.81.123.177/scoring/rest/configuration/apriori_food/score";
+
+prods=get_chosen_prods();
+
+ID=String(Math.floor((Math.random() * 10000000) + 1)); 
+body='';
+body = ''+
+'{													   '+
+'	"id": "apriori_food",                                '+
+'	"requestInputTable": [{                            '+
+'			"name": "User Input",                           '+
+'			"requestInputRow": [                      '
+for (var i in prods) {
+body += ''+
+'				{"input":                               '+
+'					[                                  '+
+'					{"name": "recipe","value": "'+ID+'"},       '+
+'					{"name": "no","value": "'+(i+1)+'"},       '+
+'					{"name": "Concept","value": "'+prods[i]+'"}      '+
+'					]                                  '+
+'					},'
+i+=1
+}
+body = body.substring(0, body.length - 1);
+body += ''+
+'				]                                      '+
+'			}                                         '+
+'		],                                             '+
+'	"context": []                                      '+
+'}                                                     '
+
+
+var client = new XMLHttpRequest();
+client.open('POST', url, false);
+//client.withCredentials = true
+client.setRequestHeader("Authorization", "Basic " + btoa("admin:spss"));
+client.setRequestHeader("Content-Type", "application/json");
+//document.getElementById("result1").innerHTML = body
+client.send(body);
+
+
+result=JSON.parse(client.responseText);
+document.getElementById("result1").innerHTML = result.rowValues[0].value[0].value;
+document.getElementById("result2").innerHTML = result.rowValues[0].value[1].value;
+document.getElementById("result3").innerHTML = result.rowValues[0].value[2].value;
+}
+
+
+
+function populate(name) {
+var select = document.getElementById(name);
+var options = ['active dry yeast',
+'allspice',
+'almond extract',
+'almonds',
+'apple juice',
+'apples',
+'applesauce',
+'asparagus',
+'bacon',
+'baking powder',
+'baking soda',
+'balsamic vinegar',
+'bananas',
+'basil',
+'bay leaf',
+'bay leaves',
+'beef',
+'black pepper',
+'boiling water',
+'bread crumbs',
+'bread flour',
+'brown sugar',
+'buttermilk',
+'carrots',
+'catsup',
+'cayenne',
+'cayenne pepper',
+'celery',
+'cheddar cheese',
+'chicken stock',
+'chili powder',
+'chopped nuts',
+'chopped onion',
+'chopped parsley',
+'chopped pecans',
+'chopped walnuts',
+'cider vinegar',
+'cinnamon',
+'cloves',
+'cloves garlic',
+'cold water',
+'cornstarch',
+'cream',
+'cream cheese',
+'cumin',
+'dijon mustard',
+'dried apricots',
+'dried oregano',
+'dry mustard',
+'dry white wine',
+'egg whites',
+'egg yolks',
+'extra virgin olive oil',
+'fresh lemon juice',
+'fresh parsley',
+'garlic',
+'garlic powder',
+'garnish',
+'ginger',
+'granulated sugar',
+'grated parmesan cheese',
+'green pepper',
+'ground',
+'ground beef',
+'ground black pepper',
+'ground cinnamon',
+'ground cloves',
+'ground cumin',
+'ground ginger',
+'ground nutmeg',
+'ground pepper',
+'heavy cream',
+'honey',
+'juice',
+'ketchup',
+'lemon',
+'lemon juice',
+'lime juice',
+'margarine',
+'melted butter',
+'milk',
+'minced garlic',
+'molasses',
+'mushrooms',
+'note',
+'nutmeg',
+'oats',
+'oil',
+'olive oil',
+'onion',
+'orange juice',
+'oregano',
+'packed brown sugar',
+'paprika',
+'parmesan cheese',
+'parsley',
+'pecans',
+'pepper',
+'potatoes',
+'powdered sugar',
+'raisins',
+'red onion',
+'red wine vinegar',
+'rice',
+'ripe bananas',
+'salt table',
+'scallions',
+'shallots',
+'skim milk',
+'sour cream',
+'soy sauce',
+'stalks celery',
+'stick',
+'stick butter',
+'strips',
+'thyme',
+'tomato paste',
+'tomato sauce',
+'tomatoes',
+'unsalted butter',
+'vanilla',
+'vanilla extract',
+'vegetable',
+'vegetable oil',
+'vinegar',
+'walnuts',
+'warm water',
+'wheat flour',
+'whipping cream',
+'white pepper',
+'worcestershire sauce',
+'yeast'];
+
+
+
+for(var i = 0; i < options.length; i++) {
+    var opt = options[i];
+    var el = document.createElement("option");
+    el.textContent = opt;
+    el.value = opt;
+    select.appendChild(el);
+	};
+};
+
+function fill_products() {
+populate("prod1") ;
+populate("prod2") ;
+populate("prod3") ;
+populate("prod4") ;
+populate("prod5") ;
+};
+
+
+</script>
+
+</head>
+<body onload="fill_products()">
+
+    <div id="WebApp">
+
+        <div id="iHeader">
+            <a href="#" id="waBackButton">Back</a>
+            <span id="waHeadTitle">L &amp; H Scoring Demo</span>
+        </div>
+	  <div id="iGroup">
+
+
+              <div class="iLayer" id="waHome" title="Home">
+                <div class="iBlock">
+                    <h1>Introduction</h1>
+                    <p>This app demonstrates the use of an online recommendation algorithm. 
+					You can choose up to 5 items in your basket, and with every choice you make,
+					a set of recommendations will be generated. 
+					<p>
+						<a href="#_Next">Tap here</a> to use the recommender
+					</p>
+					<p>
+					Those recommendations are not programmed 
+					inside the webpage, but are requested in realtime from the IBM Collaboration and Deployment server.
+					The server hosts a model created in IBM SPSS Modeler and wraps a webservice around it. 
+					As such, it will be easy to update and modify the models without additional (web) programming. 
+					In fact, Marketing can define campaigns in a graphical environment to determine the recommendations displayed in this app.
+					</p>
+					<p>	
+						<a href="#_Install">Tap here</a> for installation instructions on the ipad.
+					</p>
+                </div>
+            </div>
+            <div class="iLayer" id="waNext" title="Recommender">
+                <div class="iBlock">
+                    <h1>Choose the input to the recommender</h1>
+					<br>
+					<center>
+						<select id="prod1" onchange="askModeler()">
+							<option>Choose a product</option>
+						</select>
+						<br>
+						<select id="prod2" onchange="askModeler()">
+							<option>Choose a product</option>
+						</select>
+						<br>
+						<select id="prod3" onchange="askModeler()">
+							<option>Choose a product</option>
+						</select>
+						<br>
+						<select id="prod4" onchange="askModeler()">
+							<option>Choose a product</option>
+						</select>
+						<br>
+						<select id="prod5" onchange="askModeler()">
+							<option>Choose a product</option>
+						</select>
+						<br>
+						<br>
+							Recommendation 1: <br><textarea rows="1" cols="25" id="result1"></textarea><button id=add1 onclick=" fill_prods(this.id);">Add</button>
+							<br>
+							Recommendation 2: <br><textarea rows="1" cols="25" id="result2"></textarea><button id=add2 onclick=" fill_prods(this.id);">Add</button> 
+							<br>
+							Recommendation 3: <br><textarea rows="1" cols="25" id="result3"></textarea><button id=add3 onclick=" fill_prods(this.id);">Add</button> 
+							<br> 
+							</center>
+							<center>
+							<button onclick=" location.reload()">Reset</button> 
+							</center>
+                </div>
+            </div>
+			          <div class="iLayer" id="waInstall" title="Install">
+                <div class="iBlock">
+
+					
+				<h1> 4 steps to make a webpage look like an app</h1>
+					<p>
+					1) Open this page on the IPAD with the Safari browser. <br>
+					2) Left of the addressbar, you find an icon displaying a square with an arrow pointing upwards. Click it.<br>
+					3) Choose 'Add to Home Screen'.<br>
+					4) Close the browser and click the item that has just been added. You should now get a full screen app like webpage.
+                </div>
+            </div>
+        </div>	
+	</div>
+</body>
 </html>
