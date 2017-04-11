@@ -15,7 +15,7 @@ a[rel=action],a[rel=back]{display:none}
 .iMore:not(.__lod):active{color:#fff}
 .iMore.__lod{color:#888}
 .iMore.__lod span{padding:0 35px;background:url(Img/loader-gray-100x12x1.png) left center no-repeat}
-#iHeader .iTab:not(.iInner){position:relative;top:6px;margin:0 4px}
+#iHeader .iTab:not(.iInner){position:relative;top:15px;margin:20 4px}
 .iTab{border-width:3px 16px;-webkit-border-image:url(Img/button-light.png) 3 16}
 .iTab ul{margin:0 -16px;padding:0;height:26px;line-height:26px;font-size:13px;text-shadow:rgba(0,0,0,0.5) 0 -1px;color:#fff;font-weight:bold}
 .iTab li{list-style:none;padding:0;white-space:nowrap;float:left;text-align:center}
@@ -127,7 +127,7 @@ li.iRadio a label{display:none}
 .iBar,#iHeader{position:relative;z-index:1;height:44px;background-color:#8195af;-webkit-box-sizing:border-box;border-width:22px 0 1px;-webkit-border-image:url(Img/bg-head.png) 22 0 1 0;color:#fff;font-weight:bold;text-shadow:rgba(0,0,0,0.7) 0 -1px 0}
 #iHeader a{text-decoration:none;color:inherit}
 #iHeader > div{margin-top:-22px}
-#iHeader > div,#waHeadTitle{display:none;position:absolute;width:100%;top:0;bottom:0;left:0}
+#iHeader > div,#waHeadTitle{display:none;position:absolute;width:100%;top:10;bottom:0;left:0}
 .__ani #iGroup .iLayer,.__ani #iHeader #waHeadTitle{-webkit-transition-property:-webkit-transform;-webkit-transition-duration:0.35s}
 .__ani #iHeader > div{-webkit-transition-property:-webkit-transform,opacity;-webkit-transition-duration: 0.35s,0.35s}
 .iFooter{text-align:center;margin:10px 0;clear:both;width:100%;color:#4c566c;font-size:14px;font-weight:bold;text-shadow:#fff 0 1px 0}
