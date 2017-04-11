@@ -14,13 +14,36 @@
 
 import os
 from flask import Flask, jsonify, render_template
+import requests
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-	test="hi"
-	return render_template('index.html', test=test)
+
+	products = ['active dry yeast','allspice','almond extract','almonds','apple juice','apples','applesauce','asparagus',
+	'bacon','baking powder','baking soda','balsamic vinegar','bananas','basil','bay leaf','bay leaves','beef','black pepper',
+	'boiling water','bread crumbs','bread flour','brown sugar','buttermilk','carrots','catsup','cayenne','cayenne pepper',
+	'celery','cheddar cheese','chicken stock','chili powder','chopped nuts','chopped onion','chopped parsley','chopped pecans',
+	'chopped walnuts','cider vinegar','cinnamon','cloves','cloves garlic','cold water','cornstarch','cream','cream cheese',
+	'cumin','dijon mustard','dried apricots','dried oregano','dry mustard','dry white wine','egg whites','egg yolks',
+	'extra virgin olive oil','fresh lemon juice','fresh parsley','garlic','garlic powder','garnish','ginger','granulated sugar',
+	'grated parmesan cheese','green pepper','ground','ground beef','ground black pepper','ground cinnamon','ground cloves',
+	'ground cumin','ground ginger','ground nutmeg','ground pepper','heavy cream','honey','juice','ketchup','lemon','lemon juice',
+	'lime juice','margarine','melted butter','milk','minced garlic','molasses','mushrooms','note','nutmeg','oats','oil',
+	'olive oil','onion','orange juice','oregano','packed brown sugar','paprika','parmesan cheese','parsley','pecans','pepper',
+	'potatoes','powdered sugar','raisins','red onion','red wine vinegar','rice','ripe bananas','salt table','scallions',
+	'shallots','skim milk','sour cream','soy sauce','stalks celery','stick','stick butter','strips','thyme','tomato paste',
+	'tomato sauce','tomatoes','unsalted butter','vanilla','vanilla extract','vegetable','vegetable oil','vinegar','walnuts',
+	'warm water','wheat flour','whipping cream','white pepper','worcestershire sauce','yeast']
+	
+	return render_template('index.htm', products=products)
+
+
+	
+
+
+
 
 
 

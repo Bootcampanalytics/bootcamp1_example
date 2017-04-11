@@ -85,7 +85,7 @@ ul.iArrow li.__sel.__lod a{background-image:url(Img/loader-white-100x12x1.png)}
 .iCheck li.__dis{color:#8f8f8f}
 .iCheck li.__act.__dis a{color:#8f8f8f;background-image:url(Img/check-dis.png)}
 #iGroup .iButton{display:block;position:static}
-#waBackButton,#waHomeButton,#waLeftButton,#waRightButton,.iButton,.iLeftButton,.iRightButton{position:absolute;border-width:0 10px 0 10px;top:6px;margin:0;white-space:nowrap;overflow:hidden;display:none;text-decoration:none;max-width:15%;height:32px;line-height:32px;font-size:13px;-webkit-border-radius:4px;z-index:1}
+#waBackButton,#waHomeButton,#waLeftButton,#waRightButton,.iButton,.iLeftButton,.iRightButton{position:fixed;border-width:0 10px 0 10px;top:6px;margin:0;white-space:nowrap;overflow:hidden;display:none;text-decoration:none;max-width:15%;height:32px;line-height:32px;font-size:13px;-webkit-border-radius:4px;z-index:1}
 .iButton.__lod span *{visibility:hidden}
 .iButton.__lod span{color:rgba(0,0,0,0);background:url(Img/loader-white-100x12x1.png) center no-repeat;line-height:20px;display:inline-block}
 #waBackButton:active{-webkit-border-image: url(Img/button-back-touch.png) 0 10 0 15}
