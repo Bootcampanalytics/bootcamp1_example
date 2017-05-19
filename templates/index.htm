@@ -1,22 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
-          rel="stylesheet">
-  </head>
-  <body>
-    <div class="container">
-      <div class="header">
-        <h3 class="text-muted">How To Upload a File {{dir}}</h3>
-      </div>
-      <hr/>
-      <div>
-      
-      <form action="upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file"><br /><br />
-        <input type="submit" value="Upload">
-      </form>
-      </div>
-    </div>
-  </body>
+<html>
+<head>
+  <title>Resume scanner</title>
+  <style>
+		div.container {
+		    width: 100%;
+		    border: 1px solid gray;
+		}
+		
+		header, footer {
+		    padding: 1em;
+		    color: white;
+		    background-color: black;
+		    clear: left;
+		    text-align: center;
+		}
+		main {
+		    margin-left: 170px;
+		    border-left: 1px solid gray;
+		    padding: 1em;
+		    overflow: hidden;
+		}
+</style>
+<body>
+	<header> 
+		<h1>Resume scanner</h1>
+	</header>
+<main>
+	<form action="/" method ="POST">
+		Available model: <input type="text" size=40 name="model_id" value="{{model_id}}">
+		<input type = "submit" value="Delete model">
+	</form>
+<p>
+<h1> Upload a resume and convert only</h1>
+	<form action="convert" method ="POST" enctype = "multipart/form-data">
+	    <select name="format">
+	    	<option value="NORMALIZED_TEXT">NORMALIZED_TEXT</option>
+	    	<option value="NORMALIZED_HTML">NORMALIZED_HTML</option>
+	    </select>
+		 <input type = "file" name = "file" /><br>
+         <input type = "submit"/>
+	</form>
+<p>
+<h1> Upload a resume, convert and analyze</h1>
+	<form action="analyze" method ="POST" enctype = "multipart/form-data">
+		 <input type = "file" name = "file" /><br>
+         <input type = "submit"/>
+	</form>
+
+
+
+
+
+</main>
+<footer> Powered by IBM</footer>
+</body>
 </html>
