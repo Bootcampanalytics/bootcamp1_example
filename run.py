@@ -56,7 +56,10 @@ def analyze_file():
 		basedir = os.path.abspath(os.path.dirname(__file__))
 		f.save(os.path.join(basedir, f.filename))
 		with open(os.path.join(basedir, f.filename), 'rb') as document:
-			clear_text = document_conversion.convert_document(document=document,config=config).content
+			if os.path.splitext(document.name)[-1].lower()==".txt":
+				clear_text= document.read().decode('utf8')
+			else:
+				clear_text = document_conversion.convert_document(document=document,config=config).content
 			input_for_NLU=json.dumps({"text": clear_text,"features":{"entities": {"model": model_id}}})
 			ff=requests.post(NLU_url+'/analyze?version=2017-02-27',data=input_for_NLU,auth=HTTPBasicAuth(cred['user'], cred['pass']),headers={'content-type': 'application/json'}).content
 			return json2html.convert(json = ff.decode('utf8'))
