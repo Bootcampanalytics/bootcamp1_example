@@ -34,16 +34,22 @@
 <p>
 <h1> Upload a resume and convert only</h1>
 	<form action="convert" method ="POST" enctype = "multipart/form-data">
+	    Select the output format
 	    <select name="format">
 	    	<option value="NORMALIZED_TEXT">NORMALIZED_TEXT</option>
 	    	<option value="NORMALIZED_HTML">NORMALIZED_HTML</option>
-	    </select>
+	    </select><br>
 		 <input type = "file" name = "file" /><br>
          <input type = "submit"/>
 	</form>
 <p>
 <h1> Upload a resume, convert and analyze</h1>
 	<form action="analyze" method ="POST" enctype = "multipart/form-data">
+		 Select the model to use
+	    <select name="scoring_model">
+	    	<option value="{{model_id}}">{{model_id}}</option>
+	    	<option value="en-us-tir">en-us-tir</option>
+	    </select><br>
 		 <input type = "file" name = "file" /><br>
          <input type = "submit"/>
 	</form>

@@ -8,6 +8,7 @@ from flask import Flask, render_template, request
 from werkzeug import secure_filename
 import requests
 from requests.auth import HTTPBasicAuth
+from json2html import *
 
 app = Flask(__name__)
 
@@ -45,26 +46,21 @@ def convert_file():
 		with open(os.path.join(basedir, f.filename), 'rb') as document:
 			return document_conversion.convert_document(document=document,config=config).content
 		return 'there was a problem sending the file'	
-	
 
-@app.route('/analzye', methods = ['GET', 'POST'])
+@app.route('/analyze', methods = ['GET', 'POST'])
 def analyze_file():
 	config = {'conversion_target': 'NORMALIZED_TEXT'}
 	if request.method == 'POST':
 		f = request.files['file']
-		model_id = request.values.get('model_id')
+		model_id = request.values.get('scoring_model')
 		basedir = os.path.abspath(os.path.dirname(__file__))
 		f.save(os.path.join(basedir, f.filename))
 		with open(os.path.join(basedir, f.filename), 'rb') as document:
 			clear_text = document_conversion.convert_document(document=document,config=config).content
 			input_for_NLU=json.dumps({"text": clear_text,"features":{"entities": {"model": model_id}}})
 			ff=requests.post(NLU_url+'/analyze?version=2017-02-27',data=input_for_NLU,auth=HTTPBasicAuth(cred['user'], cred['pass']),headers={'content-type': 'application/json'}).content
-			return json.dumps(ff.decode('utf8'),sort_keys=True, indent=4, separators=(',', ': '))
+			return json2html.convert(json = ff.decode('utf8'))
 		return 'there was a problem sending the file'	
-	
-	
-		
-
 
 port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
